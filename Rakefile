@@ -1,4 +1,5 @@
 # encoding: utf-8
+# https://github.com/technicalpickles/jeweler
 
 require 'rubygems'
 require 'bundler'

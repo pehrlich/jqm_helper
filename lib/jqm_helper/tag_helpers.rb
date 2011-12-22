@@ -19,8 +19,9 @@ module JqmHelper
     #  script << "window.load_resource(#{resource.to_json}');\n"
     #end
 
+    # todo: assets version gemified
     content_tag(:div, raw(%Q{
-                  <meta name="assets_version" content="#{Brickbook::Application.config.assets.version}"/>
+                  <meta name="assets_version" content="#{1 || Brickbook::Application.config.assets.version}"/>
                   #{csrf_meta_tags}
                   <!--<script type='text/javascript'>#{script}</script>-->
                   #{capture(&block)}
