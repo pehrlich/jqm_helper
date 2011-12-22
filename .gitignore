@@ -1,3 +1,17 @@
+# ...
+.bundle
+db/*.sqlite3
+log/*.log
+
+tmp/
+.sass-cache/
+.idea/
+/*.tmpproj
+.DS_Store
+.rspec
+
+
+
 # rcov generated
 coverage
 
@@ -30,8 +44,8 @@ pkg
 #.DS_Store
 
 # For TextMate
-#*.tmproj
-#tmtags
+*.tmproj
+tmtags
 
 # For emacs:
 #*~

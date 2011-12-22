@@ -1,14 +1,17 @@
+# automatically reload on each request: (and add to application_controller)
 #require_dependency 'jqm_helper/railtie' if defined?(Rails)
 #require_dependency 'jqm_helper/tag_helpers' if defined?(Rails)
 #require_dependency 'jqm_helper/nav_builder' if defined?(Rails)
+
 require 'jqm_helper/railtie' if defined?(Rails)
 require 'jqm_helper/tag_helpers' if defined?(Rails)
 require 'jqm_helper/nav_builder' if defined?(Rails)
 
 
+
 module JqmHelper
-  include ActionView::Helpers
-  include Rails.application.routes.url_helpers
+  include ActionView::Helpers::OutputSafetyHelper # raw
+  include ActionView::Helpers::TagHelper # content_tag
 
   def make_options(defaults, custom)
 

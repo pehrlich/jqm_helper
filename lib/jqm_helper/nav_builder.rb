@@ -7,20 +7,21 @@ module JqmHelper
 
 
   class NavBuilder
+    include JqmHelper # heh.. this is not circular.. how?
+    # someday: why don't these get included by including JqmHelper
+    include ActionView::Helpers::OutputSafetyHelper # raw include ActionView::Helpers::OutputSafetyHelper # raw
+    include ActionView::Helpers::TagHelper # content_tag
 
-    include ActionView::Helpers::UrlHelper
-    include ActionView::Helpers
-    include ActionDispatch::Routing
-    include Rails.application.routes.url_helpers
+    #include ActionView::Helpers::UrlHelper
+    #include ActionDispatch::Routing
+    # lib/jqm_helper.rb:23:in `<module:JqmHelper>': undefined method `routes' for nil:NilClass (NoMethodError)
+    #include Rails.application.routes.url_helpers
 
-    include JqmHelper # why the heck do we need this?
 
-    # someday: figure out make_options dependency properly
     ACTIVE_CLASS = 'ui-btn-active'
     cattr_accessor :reverse_animation_direction
 
     def initialize(active_action = '')
-      #@reverse_animation_direction = true
       self.reverse_animation_direction = true
       @active_action = active_action.to_s
       # someday: we may be able to replace with rails current_page helper
@@ -35,15 +36,16 @@ module JqmHelper
       defaults = {
           :class => active ? ACTIVE_CLASS : '',
           :data => {
-              :role => :button,
               :icon => action,
-              :prefetch => true
           }
       }
-      defaults[:href] = method("#{action}_path").call unless options[:href] # incase method 404
+
+      # commented from trouble including named routes =/
+      #defaults[:href] = method("#{action}_path").call unless options[:href] # incase method 404
+
       defaults[:data][:direction] = 'reverse' if self.reverse_animation_direction
 
-      content_tag :a, title || action.capitalize, make_options(defaults, options)
+      jqm_button(title || action.capitalize, '', make_options(defaults, options))
     end
   end
 
