@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
     "README.md",
     "Rakefile",
     "VERSION",
+    "jqm_helper.gemspec",
     "lib/jqm_helper.rb",
     "lib/jqm_helper/nav_builder.rb",
     "lib/jqm_helper/railtie.rb",
