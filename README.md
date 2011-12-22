@@ -4,14 +4,14 @@
 
 A quick and dirty, but functional, collection of tools for speeding up development with jquery mobile.
 
-Enforces a number of sensible defaults, reducing iritable bugs.
+Enforces a number of sensible defaults, reducing irritable bugs.
 
 Includes view helpers and will soon include some handy javascript tools (such as for handling json data).
 
 
 ## Install
 
-    gem install streama
+    gem install jqm_helper
 
 
 ## Usage
@@ -19,18 +19,18 @@ Includes view helpers and will soon include some handy javascript tools (such as
 ### buttons
 
 ```ruby
-    jqm_button 'Open Refridgerator', open_fridge_path
+    jqm_button 'Open Refrigerator', open_fridge_path
     --> <a data-role="button" data-prefetch="true" href="/fridge/open">
 
     back_button
     --> <a data-role="button" data-prefetch="true" data-rel="back" >
 
-    backwards_button('Close Refridgerator', close_fridge_path, {class: 'sears'})
+    backwards_button('Close Refrigerator', close_fridge_path, {class: 'sears'})
     --> <a data-role="button" data-prefetch="true" href="/fridge/close" class="sears"
          data-icon="arrow-l" data-direction="reverse">
 
-    forwards_button('Make Sandwitch', sandwitch_path, {data: {prefetch: false} })
-    --> <a data-role="button" href="/sandwitch/make"
+    forwards_button('Make Sandwich', sandwich_path, {data: {prefetch: false} })
+    --> <a data-role="button" href="/sandwich/make"
              data-icon="arrow-r" data-iconpos="right">
 
     # and even:
@@ -48,6 +48,9 @@ A very cool syntax can be used:
     # typing that beats the pants off these keyboard gymnastics:
      { :'data-icon' => 'star, :'data-prefetch' => false }
 ```
+
+It's worth noting here that as of jquery mobile 1.0, passing false to data-prefetch has no effect, and that this gem
+works around that by removing the attribute.
 
 ### slider tag
 
