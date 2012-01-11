@@ -2,11 +2,12 @@ module JqmHelper
 
   def jqm_page(title, options = {}, &block)
     defaults = {
-        :class => "#{title.downcase}_page",
-        :id => "#{title.downcase}_page",
-        :data => {
-            :role => 'page',
-            :title => title.capitalize,
+        class: "#{title.downcase}_page",
+        id: "#{title.downcase}_page",
+        data: {
+            role: 'page',
+            title: title.capitalize,
+            url: request.url
         }
     }
 
@@ -42,7 +43,7 @@ module JqmHelper
 #end
 
 
-  def jqm_button(text, href_or_options, options = {})
+  def jqm_button(text, href_or_options = {}, options = {})
     defaults = {
         data: {
             role: :button,
@@ -50,7 +51,7 @@ module JqmHelper
         }
     }
     if href_or_options.is_a? Hash
-      options = href_of_options
+      options = href_or_options
     else
       # we allow href to be overridden by options.  Convenient or a pain?
       defaults[:href] = href_or_options
@@ -99,13 +100,13 @@ module JqmHelper
   end
   alias_method :backwards_button, :backward_button
 
-  def back_button(options = {})
+  def back_button(text = 'Back', options = {})
     defaults = {
         data: {
             rel: :back
         }
     }
-    backwards_button('Back', '#', make_options(defaults, options))
+    backwards_button(text, '#', make_options(defaults, options))
   end
 
   def slider_tag(name, label)

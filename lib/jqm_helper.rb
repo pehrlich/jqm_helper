@@ -14,6 +14,7 @@ module JqmHelper
   include ActionView::Helpers::TagHelper # content_tag
 
   def make_options(defaults, custom)
+    # todo: move to rails core extension
 
     [defaults, custom].each do |options|
       # standardize keys:
