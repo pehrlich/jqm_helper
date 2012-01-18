@@ -1,5 +1,6 @@
 module JqmHelper
 
+  # extracts object from hash and uses class name and id in data-attributes
   def jqm_page(title, options = {}, &block)
     defaults = {
         class: "#{title.downcase}_page",
@@ -10,6 +11,11 @@ module JqmHelper
             url: request.url
         }
     }
+
+
+    if object = options.delete(:object).presence
+      defaults[:data][object.class.name.to_sym] = object.id
+    end
 
     script = ''
 
@@ -22,7 +28,7 @@ module JqmHelper
 
     # todo: assets version gemified
     content_tag(:div, raw(%Q{
-                  <meta name="assets_version" content="#{1 || Brickbook::Application.config.assets.version}"/>
+                  <meta name="assets_version" content="#{Brickbook::Application.config.assets.version}"/>
                   #{csrf_meta_tags}
                   <!--<script type='text/javascript'>#{script}</script>-->
                   #{capture(&block)}
@@ -59,7 +65,10 @@ module JqmHelper
 
     defaults[:class] = 'notext' if text.blank? || text=='&nbsp;'
 
-    content_tag(:a, raw(text), make_options(defaults, options))
+    options = make_options(defaults, options)
+    options.delete(:'data-prefetch') if options[:'data-prefetch'] == false || options[:'data-prefetch'] == :false
+
+    content_tag(:a, raw(text), options)
   end
 
   def dialog_button(text, href, options = {})
@@ -74,30 +83,28 @@ module JqmHelper
 
   def forward_button(text, href, options = {})
     defaults = {
-        :href => href,
         :data => {
-            :role => :button,
             :icon => 'arrow-r',
             :iconpos => 'right'
         }
     }
 
-    content_tag(:a, raw(text), make_options(defaults, options))
+    jqm_button(text, href, make_options(defaults, options))
   end
+
   alias_method :forwards_button, :forward_button
 
   def backward_button(text, href, options = {})
     defaults = {
-        :href => href,
         :data => {
-            :role => :button,
             :icon => 'arrow-l',
             :direction => 'reverse'
         }
     }
 
-    content_tag(:a, raw(text), make_options(defaults, options))
+    jqm_button(text, href, make_options(defaults, options))
   end
+
   alias_method :backwards_button, :backward_button
 
   def back_button(text = 'Back', options = {})

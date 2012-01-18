@@ -25,9 +25,7 @@ module JqmHelper
       end
     end
 
-    options = defaults.merge(custom)
-    options.delete(:'data-prefetch') if options[:'data-prefetch'] == false
-    options
+    defaults.merge(custom)
   end
 
 end
